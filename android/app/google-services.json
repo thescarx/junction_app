@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "769144172691",
+    "project_id": "junctionapp-188e2",
+    "storage_bucket": "junctionapp-188e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:769144172691:android:0cd37366e8076f8069dd66",
+        "android_client_info": {
+          "package_name": "com.example.junc_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "769144172691-pr97vcv2n8ep2f2gc5tn1da0ehr98n99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJqU9lD6wIHQ_FZRzKpIpEwYL-tY7fCaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "769144172691-pr97vcv2n8ep2f2gc5tn1da0ehr98n99.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
