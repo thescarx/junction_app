@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'login.dart';
 
 class EmailVerification extends StatefulWidget {
+  static const String idScreen = "EmVerify";
   const EmailVerification({Key? key}) : super(key: key);
 
   @override

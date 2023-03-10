@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:junc_app/auth/AuthProvider/auth.dart';
 import 'package:junc_app/auth/Screens/authscreen.dart';
+import 'package:junc_app/auth/Screens/emailverification.dart';
 import 'package:junc_app/auth/Screens/login.dart';
 import 'package:junc_app/home/home.dart';
 import 'package:provider/provider.dart';
 
+import 'home/profil.dart';
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseAuth auth = FirebaseAuth.instance;
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => AuthProvider()),
   ], child: const MyApp()));
@@ -28,6 +32,10 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         routes: {
           Login.idScreen: (context) => const Login(),
+          AuthScreen.idScreen: (context) => const AuthScreen(),
+          Home.idScreen: (context) => const Home(),
+          EmailVerification.idScreen: (context) => const EmailVerification(),
+          Profil.idScreen: (context) => const Profil(),
         },
         theme: ThemeData(
           // This is the theme of your application.
@@ -41,8 +49,10 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home:
-            //  FirebaseAuth.instance.currentUser == null ? AuthScreen() : Home(),
-            AuthScreen());
+        home: FirebaseAuth.instance.currentUser == null
+            ? const Login()
+            : FirebaseAuth.instance.currentUser!.emailVerified
+                ? const Home()
+                : const EmailVerification());
   }
 }
