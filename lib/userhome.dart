@@ -12,6 +12,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 import 'Models/messaerieModel.dart';
 import 'auth/AuthProvider/auth.dart';
+import 'auth/Screens/emailConnection.dart';
 
 class UserHome extends StatefulWidget {
   const UserHome({super.key});
@@ -96,7 +97,15 @@ class _UserHomeState extends State<UserHome> {
                   const Spacer(),
                   TextButton.icon(
                       onPressed: () {
-                        _showMyDialog();
+                        if(prov.user!.isConnected){
+                          _showMyDialog();
+                        }
+                        else{
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const EmailConnection(),
+                          ));
+                        }
+                        
                       },
                       icon: Transform.rotate(
                         angle: -45 * 3.1415926535 / 180,
