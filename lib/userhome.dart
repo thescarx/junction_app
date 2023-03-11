@@ -25,7 +25,7 @@ class _UserHomeState extends State<UserHome> {
   TextEditingController textChat = TextEditingController();
   bool isLoading = false;
   List<Message> msgs=[];
-  final String apiKey = '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';
+  final String apiKey = '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';
   final String endpoint = 'https://api.chatgpt.com/generate';
   SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
@@ -400,8 +400,6 @@ class _UserHomeState extends State<UserHome> {
       },
       body: jsonEncode(<String, dynamic>{
         'prompt': prompt,
-        'max_tokens': 50,
-        'temperature': 0.5,
       }),
     );
 
@@ -412,6 +410,7 @@ class _UserHomeState extends State<UserHome> {
         msgs.add(Message(text,DateTime.now(),false));
       });
     } else {
+      print(response.reasonPhrase);
       throw Exception('Failed to generate text from GPT API');
     }
   }
