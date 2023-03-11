@@ -44,101 +44,46 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Column(
-        children: [
-          SvgPicture.asset(
-            'assets/logo.svg',
-            width: 125,
-            height: 142,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 180, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Login',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  'Login with your account',
-                  style: TextStyle(color: Color.fromARGB(255, 60, 60, 60)),
-                )
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              'assets/logo.svg',
+              width: 125,
+              height: 142,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-            child: TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                ),
-                hintText: "xyz123@gmail.com",
-                prefixIcon: const Icon(
-                  Icons.email_outlined,
-                  color: Color.fromARGB(255, 113, 111, 111),
-                ),
-                hintStyle: const TextStyle(
-                  color: Color(0xff8F9BB3),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 180, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Login',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Login with your account',
+                    style: TextStyle(color: Color.fromARGB(255, 60, 60, 60)),
+                  )
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 56,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
               child: TextField(
-                controller: passwordController,
-                obscureText: showpass,
-                enableSuggestions: false,
-                autocorrect: false,
+                controller: emailController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          showpass = !showpass;
-                        });
-                      },
-                      child: Text(
-                        !showpass ? 'SHOW' : 'HIDE',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 114, 88, 219),
-                        ),
-                      ),
-                    ),
-                  ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(
                         color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
@@ -154,73 +99,126 @@ class _LoginState extends State<Login> {
                     borderSide: const BorderSide(
                         color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
                   ),
-                  hintText: ". . . . . . . .",
+                  hintText: "Email address",
                   prefixIcon: const Icon(
-                    Icons.lock_outline_rounded,
+                    Icons.email_outlined,
                     color: Color.fromARGB(255, 113, 111, 111),
                   ),
                   hintStyle: const TextStyle(
                     color: Color(0xff8F9BB3),
-                    fontSize: 18,
+                    fontSize: 15,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Checkbox(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      checkColor: Colors.white,
-                      // fillColor: MaterialStateProperty.resolveWith(getColor),
-                      value: isChecked,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          isChecked = value!;
-                        });
-                      },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 56,
+                child: TextField(
+                  controller: passwordController,
+                  obscureText: showpass,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showpass = !showpass;
+                          });
+                        },
+                        child: Text(
+                          !showpass ? 'SHOW' : 'HIDE',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 114, 88, 219),
+                          ),
+                        ),
+                      ),
                     ),
-                    const Text(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                    ),
+                    hintText: "Password",
+                    prefixIcon: const Icon(
+                      Icons.lock_outline_rounded,
+                      color: Color.fromARGB(255, 113, 111, 111),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Checkbox(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        checkColor: Colors.white,
+                        // fillColor: MaterialStateProperty.resolveWith(getColor),
+                        value: isChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isChecked = value!;
+                          });
+                        },
+                      ),
+                      const Text(
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xff8F9BB3)),
+                        "Remember me",
+                      ),
+                    ],
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const ForgetPass(),
+                      ));
+                    },
+                    child: const Text(
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff8F9BB3)),
-                      "Remember me",
+                          color: Color(0xffA80D2B)),
+                      "Forgot your password ?",
                     ),
-                  ],
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const ForgetPass(),
-                    ));
-                  },
-                  child: const Text(
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xffA80D2B)),
-                    "Forgot your password ?",
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 70,
-          ),
-          isLoading
-              ? const CircularProgressIndicator()
-              : Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Center(
+            const SizedBox(
+              height: 70,
+            ),
+            isLoading
+                ? const CircularProgressIndicator()
+                : Center(
                     child: InkWell(
                       onTap: () async {
                         await _signIn(
@@ -245,29 +243,29 @@ class _LoginState extends State<Login> {
                           )),
                     ),
                   ),
-                ),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text("You don't have an account ? "),
-                TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const AuthScreen()));
-                    },
-                    child: const Text(
-                      'Join us',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 114, 88, 219)),
-                    ))
-              ],
-            ),
-          )
-        ],
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("You don't have an account ? "),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const AuthScreen()));
+                      },
+                      child: const Text(
+                        'Join us',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 114, 88, 219)),
+                      ))
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
