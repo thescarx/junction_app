@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:junc_app/main.dart';
 import 'package:provider/provider.dart';
 
 import '../AuthProvider/auth.dart';
@@ -169,8 +171,22 @@ class _EmailConnectionState extends State<EmailConnection> {
                   child: Center(
                     child: InkWell(
                       onTap: () async {
-                        // await _signIn(
-                        //     emailController.text, passwordController.text);
+                        if(emailController.text.isEmpty || passwordController.text.isEmpty){
+                          EasyLoading.showError("You need to fill all the information");
+                        }else{
+                          prov.user!.setEmail(emailController.text, passwordController.text);
+                          prov.user?.isConnected=true;
+                          users.doc(prov.user!.uid).update({
+                            "connectedEmail":emailController.text,
+                            "connectedPwd":passwordController.text,
+                            "isConnected":true
+                          }).then((value) =>
+                              {
+                                EasyLoading.show(status: "You data has been added successfully!"),
+                                Navigator.pop(context)
+                              });
+                        }
+
                       },
                       child: Container(
                           width: size.width * 0.9,
@@ -198,4 +214,6 @@ class _EmailConnectionState extends State<EmailConnection> {
           ),
         ));
   }
+
+
 }

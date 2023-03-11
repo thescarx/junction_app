@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
-class Message{
+class MsgModel{
 String text;
 DateTime date;
 bool isSentByMe;
-Message(@required this.text,@required this.date,@required this.isSentByMe);
+MsgModel(@required this.text,@required this.date,@required this.isSentByMe);
 }

@@ -52,6 +52,9 @@ class AuthProvider extends ChangeNotifier {
           pic: event['pic'],
           birthdate: event['birthdate'],
           isConnected: event['isConnected']);
+      if(event["isConnected"]){
+        user!.setEmail(event['connectedEmail'], event['connectedPwd']);
+      }
           notifyListeners();
   }
 

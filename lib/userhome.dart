@@ -25,8 +25,8 @@ class _UserHomeState extends State<UserHome> {
   TextEditingController emailController = TextEditingController();
   TextEditingController textChat = TextEditingController();
   bool isLoading = false;
-  List<Message> msgs=[];
-  final String apiKey = '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';
+  List<MsgModel> msgs=[];
+  final String apiKey = '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';
   final String endpoint = 'https://api.chatgpt.com/generate';
   SpeechToText _speechToText = SpeechToText();
   bool _speechEnabled = false;
@@ -98,7 +98,7 @@ class _UserHomeState extends State<UserHome> {
                   TextButton.icon(
                       onPressed: () {
                         if(prov.user!.isConnected){
-                          _showMyDialog();
+                          _showMyDialog(prov);
                         }
                         else{
                           Navigator.of(context).push(MaterialPageRoute(
@@ -129,7 +129,7 @@ class _UserHomeState extends State<UserHome> {
                 children: [
                   Expanded(
                       child:
-                      GroupedListView<Message,DateTime>(
+                      GroupedListView<MsgModel,DateTime>(
                         padding: const EdgeInsets.all(8),
                         useStickyGroupSeparators: true,
                         floatingHeader: true,
@@ -140,9 +140,9 @@ class _UserHomeState extends State<UserHome> {
                             message.date.month,
                             message.date.day
                         ),
-                        groupHeaderBuilder: (Message message)=>const SizedBox(
+                        groupHeaderBuilder: (MsgModel message)=>const SizedBox(
                           height: 20,),
-                        itemBuilder: (context,Message message)=>Align(
+                        itemBuilder: (context,MsgModel message)=>Align(
                             alignment: message.isSentByMe
                                 ?Alignment.centerRight
                                 :Alignment.centerLeft,
@@ -206,7 +206,7 @@ class _UserHomeState extends State<UserHome> {
                                 child: InkWell(
                                   onTap: (){
                                     setState(() {
-                                      msgs.add(Message(textChat.text, DateTime.now(), true));
+                                      msgs.add(MsgModel(textChat.text, DateTime.now(), true));
                                     });
                                     _generateTextFromGpt(textChat.text);
                                   },
@@ -282,7 +282,7 @@ class _UserHomeState extends State<UserHome> {
       textChat.text = result.recognizedWords;
     });
   }
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog(prov) async {
     var size = MediaQuery.of(context).size;
     return showDialog<void>(
       context: context,
@@ -329,6 +329,9 @@ class _UserHomeState extends State<UserHome> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
+                          onTap: (){
+                            Navigator.pop(context);
+                          },
                           child: Container(
                             height: 40,
                             width: size.width * 0.35,
@@ -348,6 +351,9 @@ class _UserHomeState extends State<UserHome> {
                           ),
                         ),
                         InkWell(
+                          onTap: (){
+                            _sendEmail(prov.user.connectedEmail,prov.user.connectedPwd);
+                          },
                           child: Container(
                             height: 40,
                             width: size.width * 0.35,
@@ -414,12 +420,20 @@ class _UserHomeState extends State<UserHome> {
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body);
       final text = responseJson['choices'][0]['text'] as String;
+      print(responseJson);
       setState(() {
-        msgs.add(Message(text,DateTime.now(),false));
+        msgs.add(MsgModel(text,DateTime.now(),false));
       });
     } else {
       print(response.reasonPhrase);
       throw Exception('Failed to generate text from GPT API');
     }
+  }
+
+  _sendEmail(user,pwd) async {
+
+
+    // Print the response status code and body
+
   }
 }

@@ -22,7 +22,7 @@ Future main() async {
     ChangeNotifierProvider(create: (_) => AuthProvider()),
   ], child: const MyApp()));
 }
-
+CollectionReference users = FirebaseFirestore.instance.collection('users');
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

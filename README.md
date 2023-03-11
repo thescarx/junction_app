@@ -1,8 +1,10 @@
 # junc_app
 
-A new Flutter project.
+The KYOChat aaplication project.
 
-## Getting Started
+## KYOChat extention:
+
+https://github.com/YahiaXXX/KYO-Extension
 
 This project is a starting point for a Flutter application.
 

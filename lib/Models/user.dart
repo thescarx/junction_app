@@ -5,6 +5,8 @@ class appUser {
   String? pic;
   String? birthdate;
   bool isConnected;
+  late String connectedEmail;
+  late String connectedPwd;
 
   appUser(
       {required this.uid,
@@ -13,4 +15,8 @@ class appUser {
       required this.pic,
       required this.birthdate,
       required this.isConnected});
+  setEmail(email,pwd){
+    connectedEmail=email;
+    connectedPwd=pwd;
+  }
 }
