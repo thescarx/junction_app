@@ -51,7 +51,7 @@ class _UserHomeState extends State<UserHome> {
     double heightSize = MediaQuery.of(context).size.height;
     return Scaffold(
 
-        appBar: !isLoading? PreferredSize(
+        appBar:PreferredSize(
           preferredSize: const Size.fromHeight(120),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 12),
@@ -111,8 +111,7 @@ class _UserHomeState extends State<UserHome> {
               ),
             ),
           ),
-        )
-        :PreferredSize(child:  Container(), preferredSize:const Size.fromHeight(120) ),
+        ),
         body: isLoading
             ? const Center(
                 child: CircularProgressIndicator(),

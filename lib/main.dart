@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:junc_app/auth/AuthProvider/auth.dart';
 import 'package:junc_app/auth/Screens/authscreen.dart';
 import 'package:junc_app/auth/Screens/emailverification.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
+        builder: EasyLoading.init(),
         routes: {
           Login.idScreen: (context) => const Login(),
           AuthScreen.idScreen: (context) => const AuthScreen(),
