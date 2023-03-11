@@ -15,6 +15,7 @@ class UserHome extends StatefulWidget {
 }
 
 class _UserHomeState extends State<UserHome> {
+  TextEditingController emailController = TextEditingController();
   bool isLoading = false;
   _loadData() async {
     var prov = Provider.of<AuthProvider>(context, listen: false);
@@ -39,6 +40,99 @@ class _UserHomeState extends State<UserHome> {
     _loadData();
   }
 
+  Future<void> _showMyDialog() async {
+    var size = MediaQuery.of(context).size;
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          insetPadding: const EdgeInsets.all(20),
+          contentPadding: EdgeInsets.zero,
+          // clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          content: Builder(builder: (context) {
+            return SizedBox(
+              height: 200,
+              width: 500,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'This text comes from chatgpt',
+                      overflow: TextOverflow.fade,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: Colors.black,
+                          ),
+                          hintText: 'E-mail'),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          child: Container(
+                            height: 40,
+                            width: size.width * 0.35,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 2,
+                                    color: const Color.fromARGB(
+                                        255, 114, 88, 219))),
+                            child: const Center(
+                                child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 114, 88, 219),
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 40,
+                            width: size.width * 0.35,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: const Color.fromARGB(255, 114, 88, 219)),
+                            child: const Center(
+                                child: Text(
+                              'Send',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          }),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var prov = Provider.of<AuthProvider>(context, listen: false);
@@ -46,7 +140,7 @@ class _UserHomeState extends State<UserHome> {
 
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(120),
+          preferredSize: const Size.fromHeight(120),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 12),
             child: SizedBox(
@@ -64,7 +158,7 @@ class _UserHomeState extends State<UserHome> {
                           : Image.network(prov.user!.pic!),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Column(
@@ -75,26 +169,28 @@ class _UserHomeState extends State<UserHome> {
                         prov.user!.email!,
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       InkWell(
                           onTap: () {},
-                          child: Text(
+                          child: const Text(
                             'View profile',
                             style: TextStyle(
                                 color: Color.fromARGB(255, 114, 88, 219)),
                           )),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   TextButton.icon(
-                      onPressed: () {},
-                      icon: Icon(
+                      onPressed: () {
+                        _showMyDialog();
+                      },
+                      icon: const Icon(
                         Icons.send_outlined,
                         color: Color.fromARGB(255, 114, 88, 219),
                       ),
-                      label: Text(
+                      label: const Text(
                         'Email',
                         style:
                             TextStyle(color: Color.fromARGB(255, 114, 88, 219)),
