@@ -45,6 +45,9 @@ dependencies:
   flutter_mailer: ^2.0.2
   persistent_bottom_nav_bar: ^5.0.2
   flutter_svg: ^2.0.3
+  grouped_list: ^5.1.2
+  speech_to_text: ^6.1.1
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +74,7 @@ flutter:
   assets:
     - assets/user-avatar.png
     - assets/logo.svg
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
