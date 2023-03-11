@@ -43,21 +43,23 @@ class _HomeUserState extends State<HomeUser> {
   Widget build(BuildContext context) {
     var prov = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: PageStorage(
         bucket: Bucket,
         child: currentScrteen,
       ),
-      bottomNavigationBar: BottomAppBar(
-        height: 70,
-        notchMargin: 0,
-        elevation: 0,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: BottomAppBar(
+          color: Colors.transparent,
+          height: 100,
+          notchMargin: 0,
+          elevation: 50,
           child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50), color: Colors.amber),
+                borderRadius: BorderRadius.circular(50), color: Colors.white),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 MaterialButton(
                   // minWidth: 40,
@@ -68,11 +70,17 @@ class _HomeUserState extends State<HomeUser> {
                     });
                   },
                   child: Container(
-                    width: 60,
-                    height: 90,
-                    color: CurrentTab == 0
-                        ? Color.fromARGB(255, 114, 88, 219)
-                        : Colors.white,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.horizontal(
+                        left: Radius.circular(50),
+                      ),
+                      // border: const Border.fromBorderSide(BorderSide.none),
+                      color: CurrentTab == 0
+                          ? const Color.fromARGB(255, 114, 88, 219)
+                          : Colors.white,
+                    ),
+                    width: 65,
+                    height: 100,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -111,7 +119,7 @@ class _HomeUserState extends State<HomeUser> {
                     width: 60,
                     height: 90,
                     color: CurrentTab == 1
-                        ? Color.fromARGB(255, 114, 88, 219)
+                        ? const Color.fromARGB(255, 114, 88, 219)
                         : Colors.white,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +159,7 @@ class _HomeUserState extends State<HomeUser> {
                     width: 60,
                     height: 90,
                     color: CurrentTab == 2
-                        ? Color.fromARGB(255, 114, 88, 219)
+                        ? const Color.fromARGB(255, 114, 88, 219)
                         : Colors.white,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -188,19 +196,21 @@ class _HomeUserState extends State<HomeUser> {
                     });
                   },
                   child: Container(
-                    width: 60,
-                    height: 90,
-                    color: CurrentTab == 3
-                        ? Color.fromARGB(255, 114, 88, 219)
-                        : Colors.white,
+                    width: 65,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: CurrentTab == 3
+                          ? const Color.fromARGB(255, 114, 88, 219)
+                          : Colors.white,
+                      borderRadius: const BorderRadius.horizontal(
+                          right: Radius.circular(50)),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.settings_outlined,
-                          color: CurrentTab == 3
-                              ? const Color(0xffCCCCD0)
-                              : Colors.black,
+                          color: CurrentTab == 3 ? Colors.white : Colors.black,
                         ),
                         if (CurrentTab == 3)
                           const SizedBox(
