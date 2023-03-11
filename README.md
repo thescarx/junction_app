@@ -1,6 +1,6 @@
 # junc_app
 
-The KYOChat aaplication project.
+The KYOChat application project.
 
 ## KYOChat extention:
 
