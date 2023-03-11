@@ -18,6 +18,7 @@ class UserHome extends StatefulWidget {
 
 class _UserHomeState extends State<UserHome> {
   TextEditingController emailController = TextEditingController();
+  TextEditingController textChat = TextEditingController();
   bool isLoading = false;
   List<Message> msgs=[];
   _loadData() async {
@@ -140,7 +141,8 @@ class _UserHomeState extends State<UserHome> {
   Widget build(BuildContext context) {
     var prov = Provider.of<AuthProvider>(context, listen: false);
     var size = MediaQuery.of(context).size;
-
+    double widthSize = MediaQuery.of(context).size.width;
+    double heightSize = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(120),
@@ -252,6 +254,64 @@ class _UserHomeState extends State<UserHome> {
                         separator:const SizedBox(height: 3,),
 
                       )),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: widthSize - 72,
+                          height: 56,
+                          child: TextField(
+                            controller: textChat,
+                            decoration: InputDecoration(
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(bottom: 5.0),
+                                child: Transform.rotate(
+                                  angle: -45 * 3.1415926535 / 180,
+                                    child: const Icon(Icons.send,size: 30,)),
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              floatingLabelBehavior:
+                              FloatingLabelBehavior.always,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    color:  Color.fromARGB(255, 114, 88, 219),
+                                    width: 1.5),
+                                borderRadius:
+                                BorderRadius.circular(12.0),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                    color:  Color.fromARGB(255, 114, 88, 219),
+                                    width: 1.5),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(12.0),
+                                borderSide: const BorderSide(
+                                    color:  Color.fromARGB(255, 114, 88, 219),
+                                    width: 1.5),
+                              ),
+
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 50,
+                          height: 56,
+                          child: Icon(
+                            Icons.mic,
+                              color: Colors.black87,
+                            size: 40,
+                          )
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ));
   }
