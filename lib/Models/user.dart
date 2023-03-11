@@ -5,6 +5,7 @@ class appUser {
   String? pic;
   String? birthdate;
   bool isConnected;
+  String? joinedDate;
 
   appUser(
       {required this.uid,
@@ -12,5 +13,6 @@ class appUser {
       required this.email,
       required this.pic,
       required this.birthdate,
-      required this.isConnected});
+      required this.isConnected,
+      required this.joinedDate});
 }

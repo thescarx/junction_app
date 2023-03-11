@@ -48,6 +48,7 @@ dependencies:
   grouped_list: ^5.1.2
   speech_to_text: ^6.1.1
   http: ^0.13.5
+  file_picker: ^5.2.5
 
 dev_dependencies:
   flutter_test:
