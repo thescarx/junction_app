@@ -38,7 +38,7 @@ class AuthProvider extends ChangeNotifier {
           print('The account already exists for that email.');
         }
       } catch (e) {
-        print(e);
+        rethrow;
       }
     }
   }
@@ -91,11 +91,10 @@ class AuthProvider extends ChangeNotifier {
               context, MaterialPageRoute(builder: (_) => HomeUser()));
         }
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
+       rethrow;
+      }
+      catch(e){
+        rethrow;
       }
     }
   }

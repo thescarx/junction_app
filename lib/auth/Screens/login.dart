@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
     });
   }
 
-  bool showpass = false;
+  bool showpass = true;
   bool isChecked = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -133,7 +133,7 @@ class _LoginState extends State<Login> {
                           });
                         },
                         child: Text(
-                          !showpass ? 'SHOW' : 'HIDE',
+                          showpass ? 'SHOW' : 'HIDE',
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Color.fromARGB(255, 114, 88, 219),
@@ -217,7 +217,9 @@ class _LoginState extends State<Login> {
               height: 70,
             ),
             isLoading
-                ? const CircularProgressIndicator()
+                ? const CircularProgressIndicator(
+                    color: const Color.fromARGB(255, 114, 88, 219),
+                  )
                 : Center(
                     child: InkWell(
                       onTap: () async {
@@ -243,27 +245,28 @@ class _LoginState extends State<Login> {
                           )),
                     ),
                   ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("You don't have an account ? "),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const AuthScreen()));
-                      },
-                      child: const Text(
-                        'Join us',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Color.fromARGB(255, 114, 88, 219)),
-                      ))
-                ],
-              ),
-            )
+            if (!isLoading)
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("You don't have an account ? "),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const AuthScreen()));
+                        },
+                        child: const Text(
+                          'Join us',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 114, 88, 219)),
+                        ))
+                  ],
+                ),
+              )
           ],
         ),
       ),

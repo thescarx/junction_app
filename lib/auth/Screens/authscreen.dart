@@ -334,7 +334,8 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
             isLoading
-                ? const CircularProgressIndicator()
+                ? const CircularProgressIndicator(
+                    color : const Color.fromARGB(255, 114, 88, 219))
                 : InkWell(
                     onTap: () async {
                       await _signUp(
@@ -362,7 +363,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           ),
                         )),
                   ),
-            Center(
+            if(!isLoading)Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
