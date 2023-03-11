@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:junc_app/auth/AuthProvider/auth.dart';
 import 'package:junc_app/home/profil.dart';
 import 'package:junc_app/pending.dart';
 import 'package:junc_app/settings.dart';
 import 'package:junc_app/userhome.dart';
+import 'package:provider/provider.dart';
 
 class HomeUser extends StatefulWidget {
   static const String idScreen = 'home';
@@ -17,6 +21,30 @@ class _HomeUserState extends State<HomeUser> {
   Color mainColor = const Color.fromARGB(1, 120, 121, 241);
 
   final bool isKeyboardVisible = false;
+  bool isLoading = false;
+  _loadData() async {
+    var prov = Provider.of<AuthProvider>(context, listen: false);
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      await prov.getUserData(prov.auth.currentUser!.uid);
+    } catch (e) {
+      EasyLoading.showError('Error has occured when loading user data');
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadData();
+  }
+
   // final List<Widget> screens = const [
   //   UserHome(),
   //   Pending(),
@@ -29,6 +57,7 @@ class _HomeUserState extends State<HomeUser> {
 
   @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       body: PageStorage(
         bucket: Bucket,
@@ -45,7 +74,7 @@ class _HomeUserState extends State<HomeUser> {
               // minWidth: 40,
               onPressed: () {
                 setState(() {
-                  currentScrteen = const Settings();
+                  currentScrteen = const UserHome();
                   CurrentTab = 0;
                 });
               },
