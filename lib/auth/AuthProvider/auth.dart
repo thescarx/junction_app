@@ -50,7 +50,8 @@ class AuthProvider extends ChangeNotifier {
           fullName: event['fullName'],
           email: event['email'],
           pic: event['pic'],
-          birthdate: event['birthdate']);
+          birthdate: event['birthdate'],
+          isConnected: event['isConnected']);
           notifyListeners();
   }
 
@@ -67,7 +68,8 @@ class AuthProvider extends ChangeNotifier {
           'fullName': fullName,
           'email': email,
           'birthdate': birthdate,
-          'pic': ''
+          'pic': '',
+          'isConnected':false
         });
       } catch (e) {
         rethrow;
