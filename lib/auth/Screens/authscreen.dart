@@ -38,228 +38,350 @@ class _AuthScreenState extends State<AuthScreen> {
     });
   }
 
-  bool showpass = false;
+  bool showpass = true;
+  bool showpass2 = true;
   DateTime? assuranceExp;
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController birthdateController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordCController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            'assets/logo.svg',
-            width: 125,
-            height: 142,
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 20, 100, 0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  'Register',
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  'create your account in Kyochat to reply with professional emails',
-                  style: TextStyle(color: Color.fromARGB(255, 60, 60, 60)),
-                )
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/logo.svg',
+              width: 125,
+              height: 142,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: TextField(
-              controller: nameController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                ),
-                hintText: "Full Name",
-                prefixIcon: const Icon(
-                  Icons.person_2_outlined,
-                  color: Color.fromARGB(255, 113, 111, 111),
-                ),
-                hintStyle: const TextStyle(
-                  color: Color(0xff8F9BB3),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 20, 100, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Register',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'create your account in Kyochat to reply with professional emails',
+                    style: TextStyle(color: Color.fromARGB(255, 60, 60, 60)),
+                  )
+                ],
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: const BorderSide(
-                      color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
-                ),
-                hintText: "Email address",
-                prefixIcon: const Icon(
-                  Icons.email_outlined,
-                  color: Color.fromARGB(255, 113, 111, 111),
-                ),
-                hintStyle: const TextStyle(
-                  color: Color(0xff8F9BB3),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 80,
-            child: TextField(
-              readOnly: true,
-              controller: birthdateController,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Color(0xffE4E9F2), width: 1.5),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide:
-                      const BorderSide(color: Color(0xffE4E9F2), width: 1.5),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide:
-                      const BorderSide(color: Color(0xffE4E9F2), width: 1.5),
-                ),
-                hintText: "DD/MM/YYYY",
-                hintStyle: const TextStyle(
-                  color: Color(0xff8F9BB3),
-                  fontSize: 15,
-                  fontFamily: "Tajawal",
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              onTap: () async {
-                assuranceExp = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(1950),
-                  lastDate: DateTime(222222),
-                );
-                if (assuranceExp != null) {
-                  setState(() {
-                    birthdateController.text =
-                        "${assuranceExp!.day}-${assuranceExp!.month}-${assuranceExp!.year}";
-                  });
-                }
-              },
-            ),
-          ),
-          const Text(
-            style: TextStyle(
-              fontSize: 13,
-              fontFamily: "Tajawal",
-              fontWeight: FontWeight.w400,
-            ),
-            "Mot de passe",
-          ),
-          SizedBox(
-            height: 56,
-            child: TextField(
-              controller: passwordController,
-              obscureText: showpass,
-              enableSuggestions: false,
-              autocorrect: false,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showpass = !showpass;
-                    });
-                  },
-                  child: Icon(
-                    showpass ? Icons.visibility : Icons.visibility_off,
-                    color: const Color(0xff8F9BB3),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                  ),
+                  hintText: "Full Name",
+                  prefixIcon: const Icon(
+                    Icons.person_2_outlined,
+                    color: Color.fromARGB(255, 113, 111, 111),
+                  ),
+                  hintStyle: const TextStyle(
+                    color: Color(0xff8F9BB3),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Color(0xffE4E9F2), width: 1.5),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide:
-                      const BorderSide(color: Color(0xffE4E9F2), width: 1.5),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                  borderSide:
-                      const BorderSide(color: Color(0xffE4E9F2), width: 1.5),
-                ),
-                hintText: ". . . . . . . .",
-                hintStyle: const TextStyle(
-                  color: Color(0xff8F9BB3),
-                  fontSize: 18,
-                  fontFamily: "Tajawal",
-                  fontWeight: FontWeight.w500,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                  ),
+                  hintText: "Email address",
+                  prefixIcon: const Icon(
+                    Icons.email_outlined,
+                    color: Color.fromARGB(255, 113, 111, 111),
+                  ),
+                  hintStyle: const TextStyle(
+                    color: Color(0xff8F9BB3),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
-          ),
-          isLoading
-              ? CircularProgressIndicator()
-              : TextButton.icon(
-                  onPressed: () async {
-                    await _signUp(nameController.text, birthdateController.text,
-                        emailController.text, passwordController.text, context);
-                  },
-                  icon: const Icon(Icons.sign_language_sharp),
-                  label: const Text('SignUp'))
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: TextField(
+                readOnly: true,
+                controller: birthdateController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.calendar_month_outlined,
+                    color: Color.fromARGB(255, 113, 111, 111),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: const BorderSide(
+                        color: Color.fromARGB(255, 154, 155, 157), width: 1.5),
+                  ),
+                  hintText: "Birthdate",
+                  hintStyle: const TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+                onTap: () async {
+                  assuranceExp = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1950),
+                    lastDate: DateTime(222222),
+                  );
+                  if (assuranceExp != null) {
+                    setState(() {
+                      birthdateController.text =
+                          "${assuranceExp!.day}-${assuranceExp!.month}-${assuranceExp!.year}";
+                    });
+                  }
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: SizedBox(
+                height: 56,
+                child: TextField(
+                  controller: passwordController,
+                  obscureText: showpass,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showpass = !showpass;
+                          });
+                        },
+                        child: Text(
+                          showpass ? 'SHOW' : 'HIDE',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 114, 88, 219),
+                          ),
+                        ),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                    ),
+                    hintText: "Password",
+                    prefixIcon: const Icon(
+                      Icons.lock_outline_rounded,
+                      color: Color.fromARGB(255, 113, 111, 111),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: SizedBox(
+                height: 56,
+                child: TextField(
+                  controller: passwordCController,
+                  obscureText: showpass2,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            showpass2 = !showpass2;
+                          });
+                        },
+                        child: Text(
+                          showpass2 ? 'SHOW' : 'HIDE',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 114, 88, 219),
+                          ),
+                        ),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 154, 155, 157),
+                          width: 1.5),
+                    ),
+                    hintText: "Confirm your password",
+                    prefixIcon: const Icon(
+                      Icons.lock_outline_rounded,
+                      color: Color.fromARGB(255, 113, 111, 111),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  Flexible(
+                    child: TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'By signing up you agree to our term of use and privacy notice',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 114, 88, 219)),
+                        )),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            ),
+            isLoading
+                ? const CircularProgressIndicator()
+                : InkWell(
+                    onTap: () async {
+                      await _signUp(
+                          nameController.text,
+                          birthdateController.text,
+                          emailController.text,
+                          passwordController.text,
+                          context);
+                    },
+                    child: Container(
+                        width: size.width * 0.9,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: const Color.fromARGB(255, 114, 88, 219),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xffffffff),
+                            ),
+                            "Register",
+                          ),
+                        )),
+                  ),
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("You don't have an account ? "),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: Color.fromARGB(255, 114, 88, 219)),
+                      ))
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
