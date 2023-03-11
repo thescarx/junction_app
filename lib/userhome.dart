@@ -50,7 +50,8 @@ class _UserHomeState extends State<UserHome> {
     double widthSize = MediaQuery.of(context).size.width;
     double heightSize = MediaQuery.of(context).size.height;
     return Scaffold(
-        appBar: PreferredSize(
+
+        appBar:PreferredSize(
           preferredSize: const Size.fromHeight(120),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 12),
@@ -64,9 +65,9 @@ class _UserHomeState extends State<UserHome> {
                     width: 50,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: prov.user!.pic!.isEmpty
-                          ? Image.asset('assets/user-avatar.png')
-                          : Image.network(prov.user!.pic!),
+                      child:
+                           Image.asset('assets/user-avatar.png')
+                          ,
                     ),
                   ),
                   const SizedBox(
