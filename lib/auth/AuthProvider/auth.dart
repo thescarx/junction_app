@@ -54,22 +54,14 @@ class AuthProvider extends ChangeNotifier {
           isConnected: event['isConnected'],
           joinedDate: _getTime(event['joinDate']));
           notifyListeners();
+
+    if(event['isConnected']){
+      user!.setEmail(event['connectedEmail'], event['connectedPwd']);
+    }
   }
 
    _getTime(Timestamp date) {
-    if (date.toDate().toIso8601String().split('T').first ==
-        DateTime.now().toIso8601String().split('T').first) {
-      if (DateTime.now().hour == date.toDate().hour) {
-        int min = DateTime.now().minute - date.toDate().minute;
-        return "منذ $min دقائق ";
-      } else {
-        int hour = DateTime.now().hour - date.toDate().hour;
-        return "منذ $hour ساعة";
-      }
-    } else {
-      int jj = DateTime.now().day - date.toDate().day;
-      return "منذ $jj  يوم ";
-    }
+    return "${date.toDate().day}-${date.toDate().month}-${date.toDate().year}";
   }
 
   Future<void> registerUser(
@@ -104,7 +96,6 @@ class AuthProvider extends ChangeNotifier {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
         if (credential.user!.emailVerified) {
-          // ignore: use_build_context_synchronously
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (_) => HomeUser()));
         }

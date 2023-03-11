@@ -52,7 +52,9 @@ class _UserHomeState extends State<UserHome> {
     double heightSize = MediaQuery.of(context).size.height;
     return Scaffold(
 
-        appBar:PreferredSize(
+        appBar: isLoading
+            ?PreferredSize(child: Container(), preferredSize: const Size.fromHeight(120))
+            :PreferredSize(
           preferredSize: const Size.fromHeight(120),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 12),
@@ -387,6 +389,7 @@ class _UserHomeState extends State<UserHome> {
       isLoading = true;
     });
     try {
+      print('rah ytrayi weld el 9ahba');
       await prov.getUserData(prov.auth.currentUser!.uid);
     } catch (e) {
       EasyLoading.showError('Error has occured when loading user data');
