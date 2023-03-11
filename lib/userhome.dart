@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:junc_app/home/home.dart';
 import 'package:provider/provider.dart';
 
+import 'Models/messaerieModel.dart';
 import 'auth/AuthProvider/auth.dart';
 
 class UserHome extends StatefulWidget {
@@ -17,6 +19,7 @@ class UserHome extends StatefulWidget {
 class _UserHomeState extends State<UserHome> {
   TextEditingController emailController = TextEditingController();
   bool isLoading = false;
+  List<Message> msgs=[];
   _loadData() async {
     var prov = Provider.of<AuthProvider>(context, listen: false);
     setState(() {
@@ -205,7 +208,60 @@ class _UserHomeState extends State<UserHome> {
                 child: CircularProgressIndicator(),
               )
             : Column(
-                children: [],
+                children: [
+                  Expanded(
+                      child:
+                      GroupedListView<Message,DateTime>(
+                        padding: const EdgeInsets.all(8),
+                        useStickyGroupSeparators: true,
+                        floatingHeader: true,
+                        itemComparator: (element1, element2) => _compareDates(element1.date, element2.date),
+                        elements: msgs,
+                        groupBy: (message) =>DateTime(
+                            message.date.year,
+                            message.date.month,
+                            message.date.day
+                        ),
+                        groupHeaderBuilder: (Message message)=>const SizedBox(
+                          height: 20,),
+                        itemBuilder: (context,Message message)=>Align(
+                            alignment: message.isSentByMe
+                                ?Alignment.centerRight
+                                :Alignment.centerLeft,
+                            child: message.isSentByMe
+                                ?Container(
+                                decoration: const BoxDecoration(
+                                  color: Color(0xffA80D2B),
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0),bottomLeft: Radius.circular(15.0)),
+                                ),
+
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Text(message.text,style: const TextStyle(color: Colors.white,fontFamily: 'Tajawal'),),
+                                ))
+                                :Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(topRight: Radius.circular(15.0),bottomRight: Radius.circular(15.0)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12),
+                                  child: Text(message.text,style:const TextStyle(fontFamily: 'Tajawal'),),
+                                ))
+                        ),
+                        separator:const SizedBox(height: 3,),
+
+                      )),
+                ],
               ));
+  }
+  _compareDates(DateTime date1,date2){
+    if (date1.isBefore(date2)) {
+      return -1;
+    } else if (date1.isAfter(date2)) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }

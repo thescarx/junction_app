@@ -29,18 +29,15 @@ class _HomeUserState extends State<HomeUser> {
     super.initState();
   }
 
-  // final List<Widget> screens = const [
-  //   UserHome(),
-  //   Pending(),
-  //   Profil(),
-  //   Settings()
-  // ];
+
 
   final PageStorageBucket Bucket = PageStorageBucket();
   Widget currentScrteen = const UserHome();
 
   @override
   Widget build(BuildContext context) {
+    double widthSize = MediaQuery.of(context).size.width;
+    double heightSize = MediaQuery.of(context).size.height;
     var prov = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -48,22 +45,23 @@ class _HomeUserState extends State<HomeUser> {
         bucket: Bucket,
         child: currentScrteen,
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: BottomAppBar(
-          color: Colors.transparent,
-          height: 100,
-          notchMargin: 0,
-          elevation: 50,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        height: 100,
+        notchMargin: 0,
+        elevation: 50,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
           child: Container(
+            width: widthSize-10,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50), color: Colors.white),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
               children: [
-                MaterialButton(
-                  // minWidth: 40,
-                  onPressed: () {
+                InkWell(
+                  onTap: (){
                     setState(() {
                       currentScrteen = const UserHome();
                       CurrentTab = 0;
@@ -79,7 +77,7 @@ class _HomeUserState extends State<HomeUser> {
                           ? const Color.fromARGB(255, 114, 88, 219)
                           : Colors.white,
                     ),
-                    width: 65,
+                    width: (widthSize-10)/4,
                     height: 100,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -107,16 +105,16 @@ class _HomeUserState extends State<HomeUser> {
                     ),
                   ),
                 ),
-                MaterialButton(
+                InkWell(
                   // minWidth: 40,
-                  onPressed: () {
+                  onTap: () {
                     setState(() {
                       currentScrteen = const Pending();
                       CurrentTab = 1;
                     });
                   },
                   child: Container(
-                    width: 60,
+                    width: (widthSize-10)/4,
                     height: 90,
                     color: CurrentTab == 1
                         ? const Color.fromARGB(255, 114, 88, 219)
@@ -147,16 +145,16 @@ class _HomeUserState extends State<HomeUser> {
                     ),
                   ),
                 ),
-                MaterialButton(
+                InkWell(
                   // minWidth: 40,
-                  onPressed: () {
+                  onTap: () {
                     setState(() {
                       currentScrteen = const Profil();
                       CurrentTab = 2;
                     });
                   },
                   child: Container(
-                    width: 60,
+                    width: (widthSize-10)/4,
                     height: 90,
                     color: CurrentTab == 2
                         ? const Color.fromARGB(255, 114, 88, 219)
@@ -187,16 +185,16 @@ class _HomeUserState extends State<HomeUser> {
                     ),
                   ),
                 ),
-                MaterialButton(
+                InkWell(
                   // minWidth: 40,
-                  onPressed: () {
+                  onTap: () {
                     setState(() {
                       currentScrteen = const Settings();
                       CurrentTab = 3;
                     });
                   },
                   child: Container(
-                    width: 65,
+                    width: (widthSize-10)/4,
                     height: 100,
                     decoration: BoxDecoration(
                       color: CurrentTab == 3
