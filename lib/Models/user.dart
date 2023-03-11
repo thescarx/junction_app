@@ -4,7 +4,7 @@ class appUser {
   String? email;
   String? pic;
   String? birthdate;
-  bool? isConnected;
+  bool isConnected;
 
   appUser(
       {required this.uid,
