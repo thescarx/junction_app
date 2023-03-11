@@ -97,10 +97,10 @@ class _UserHomeState extends State<UserHome> {
                       onPressed: () {
                         _showMyDialog();
                       },
-                      icon: const Icon(
-                        Icons.send_outlined,
-                        color: Color.fromARGB(255, 114, 88, 219),
-                      ),
+                      icon: Transform.rotate(
+                        angle: -45 * 3.1415926535 / 180,
+                        child: const Icon(Icons.send,
+                            color: Color.fromARGB(255, 114, 88, 219))),
                       label: const Text(
                         'Email',
                         style:
@@ -257,7 +257,6 @@ class _UserHomeState extends State<UserHome> {
     setState(() {});
   }
 
-  /// Each time to start a speech recognition session
   void _startListening() async {
     await _speechToText.listen(onResult: _onSpeechResult);
     setState(() {});
@@ -267,8 +266,7 @@ class _UserHomeState extends State<UserHome> {
     setState(() {});
   }
 
-  /// This is the callback that the SpeechToText plugin calls when
-  /// the platform returns recognized words.
+
   void _onSpeechResult(SpeechRecognitionResult result) {
     setState(() {
       textChat.text = result.recognizedWords;
