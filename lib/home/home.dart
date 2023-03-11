@@ -22,27 +22,11 @@ class _HomeUserState extends State<HomeUser> {
 
   final bool isKeyboardVisible = false;
   bool isLoading = false;
-  _loadData() async {
-    var prov = Provider.of<AuthProvider>(context, listen: false);
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      await prov.getUserData(prov.auth.currentUser!.uid);
-    } catch (e) {
-      EasyLoading.showError('Error has occured when loading user data');
-    }
-
-    setState(() {
-      isLoading = false;
-    });
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _loadData();
   }
 
   // final List<Widget> screens = const [
@@ -53,7 +37,7 @@ class _HomeUserState extends State<HomeUser> {
   // ];
 
   final PageStorageBucket Bucket = PageStorageBucket();
-  Widget currentScrteen = const Profil();
+  Widget currentScrteen = const UserHome();
 
   @override
   Widget build(BuildContext context) {
@@ -64,171 +48,182 @@ class _HomeUserState extends State<HomeUser> {
         child: currentScrteen,
       ),
       bottomNavigationBar: BottomAppBar(
-        height: 60,
+        height: 70,
         notchMargin: 0,
-        // elevation: 30,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            MaterialButton(
-              // minWidth: 40,
-              onPressed: () {
-                setState(() {
-                  currentScrteen = const UserHome();
-                  CurrentTab = 0;
-                });
-              },
-              child: Container(
-                width: 60,
-                height: 90,
-                color: CurrentTab == 0
-                    ? Color.fromARGB(255, 114, 88, 219)
-                    : Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.chat_bubble_outline,
-                      color: CurrentTab == 0 ? Colors.white : Colors.black,
+        elevation: 0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50), color: Colors.amber),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MaterialButton(
+                  // minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScrteen = const UserHome();
+                      CurrentTab = 0;
+                    });
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 90,
+                    color: CurrentTab == 0
+                        ? Color.fromARGB(255, 114, 88, 219)
+                        : Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.chat_bubble_outline,
+                          color: CurrentTab == 0 ? Colors.white : Colors.black,
+                        ),
+                        if (CurrentTab == 0)
+                          const SizedBox(
+                            height: 5,
+                          ),
+                        if (CurrentTab == 0)
+                          Text(
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "Tajawal",
+                                fontWeight: FontWeight.w400,
+                                color: CurrentTab == 0
+                                    ? Colors.white
+                                    : Colors.black),
+                            "Chat",
+                          ),
+                      ],
                     ),
-                    if (CurrentTab == 0)
-                      const SizedBox(
-                        height: 5,
-                      ),
-                    if (CurrentTab == 0)
-                      Text(
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: "Tajawal",
-                            fontWeight: FontWeight.w400,
-                            color:
-                                CurrentTab == 0 ? Colors.white : Colors.black),
-                        "Chat",
-                      ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            MaterialButton(
-              // minWidth: 40,
-              onPressed: () {
-                setState(() {
-                  currentScrteen = const Pending();
-                  CurrentTab = 1;
-                });
-              },
-              child: Container(
-                width: 60,
-                height: 90,
-                color: CurrentTab == 1
-                    ? Color.fromARGB(255, 114, 88, 219)
-                    : Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.timer_outlined,
-                      color: CurrentTab == 1 ? Colors.white : Colors.black,
+                MaterialButton(
+                  // minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScrteen = const Pending();
+                      CurrentTab = 1;
+                    });
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 90,
+                    color: CurrentTab == 1
+                        ? Color.fromARGB(255, 114, 88, 219)
+                        : Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.timer_outlined,
+                          color: CurrentTab == 1 ? Colors.white : Colors.black,
+                        ),
+                        if (CurrentTab == 1)
+                          const SizedBox(
+                            height: 5,
+                          ),
+                        if (CurrentTab == 1)
+                          Text(
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "Tajawal",
+                                fontWeight: FontWeight.w400,
+                                color: CurrentTab == 1
+                                    ? Colors.white
+                                    : Colors.black),
+                            "History",
+                          ),
+                      ],
                     ),
-                    if (CurrentTab == 1)
-                      const SizedBox(
-                        height: 5,
-                      ),
-                    if (CurrentTab == 1)
-                      Text(
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: "Tajawal",
-                            fontWeight: FontWeight.w400,
-                            color:
-                                CurrentTab == 1 ? Colors.white : Colors.black),
-                        "History",
-                      ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            MaterialButton(
-              // minWidth: 40,
-              onPressed: () {
-                setState(() {
-                  currentScrteen = const Profil();
-                  CurrentTab = 2;
-                });
-              },
-              child: Container(
-                width: 60,
-                height: 90,
-                color: CurrentTab == 2
-                    ? Color.fromARGB(255, 114, 88, 219)
-                    : Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.person_outline,
-                      color: CurrentTab == 2 ? Colors.white : Colors.black,
+                MaterialButton(
+                  // minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScrteen = const Profil();
+                      CurrentTab = 2;
+                    });
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 90,
+                    color: CurrentTab == 2
+                        ? Color.fromARGB(255, 114, 88, 219)
+                        : Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.person_outline,
+                          color: CurrentTab == 2 ? Colors.white : Colors.black,
+                        ),
+                        if (CurrentTab == 2)
+                          const SizedBox(
+                            height: 5,
+                          ),
+                        if (CurrentTab == 2)
+                          Text(
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "Tajawal",
+                                fontWeight: FontWeight.w400,
+                                color: CurrentTab == 2
+                                    ? Colors.white
+                                    : Colors.black),
+                            "Profil",
+                          ),
+                      ],
                     ),
-                    if (CurrentTab == 2)
-                      const SizedBox(
-                        height: 5,
-                      ),
-                    if (CurrentTab == 2)
-                      Text(
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: "Tajawal",
-                            fontWeight: FontWeight.w400,
-                            color:
-                                CurrentTab == 2 ? Colors.white : Colors.black),
-                        "Profil",
-                      ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            MaterialButton(
-              // minWidth: 40,
-              onPressed: () {
-                setState(() {
-                  currentScrteen = const Settings();
-                  CurrentTab = 3;
-                });
-              },
-              child: Container(
-                width: 60,
-                height: 90,
-                color: CurrentTab == 3
-                    ? Color.fromARGB(255, 114, 88, 219)
-                    : Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.settings_outlined,
-                      color: CurrentTab == 3
-                          ? const Color(0xffCCCCD0)
-                          : Colors.black,
+                MaterialButton(
+                  // minWidth: 40,
+                  onPressed: () {
+                    setState(() {
+                      currentScrteen = const Settings();
+                      CurrentTab = 3;
+                    });
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 90,
+                    color: CurrentTab == 3
+                        ? Color.fromARGB(255, 114, 88, 219)
+                        : Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.settings_outlined,
+                          color: CurrentTab == 3
+                              ? const Color(0xffCCCCD0)
+                              : Colors.black,
+                        ),
+                        if (CurrentTab == 3)
+                          const SizedBox(
+                            height: 5,
+                          ),
+                        if (CurrentTab == 3)
+                          Text(
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "Tajawal",
+                                fontWeight: FontWeight.w400,
+                                color: CurrentTab == 3
+                                    ? Colors.white
+                                    : Colors.black),
+                            "Settings",
+                          ),
+                      ],
                     ),
-                    if (CurrentTab == 3)
-                      const SizedBox(
-                        height: 5,
-                      ),
-                    if (CurrentTab == 3)
-                      Text(
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: "Tajawal",
-                            fontWeight: FontWeight.w400,
-                            color:
-                                CurrentTab == 3 ? Colors.white : Colors.black),
-                        "Settings",
-                      ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

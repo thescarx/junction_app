@@ -43,15 +43,15 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getUserData(String uid) async {
-    firestore.collection('users').doc(uid).snapshots().listen((event) {
+   getUserData(String uid) async {
+    var event = await firestore.collection('users').doc(uid).get();
       user = appUser(
           uid: event['uid'],
           fullName: event['fullName'],
           email: event['email'],
           pic: event['pic'],
           birthdate: event['birthdate']);
-    });
+          notifyListeners();
   }
 
   Future<void> registerUser(

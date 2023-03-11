@@ -16,11 +16,27 @@ class UserHome extends StatefulWidget {
 
 class _UserHomeState extends State<UserHome> {
   bool isLoading = false;
+  _loadData() async {
+    var prov = Provider.of<AuthProvider>(context, listen: false);
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      await prov.getUserData(prov.auth.currentUser!.uid);
+    } catch (e) {
+      EasyLoading.showError('Error has occured when loading user data');
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _loadData();
   }
 
   @override
@@ -29,45 +45,71 @@ class _UserHomeState extends State<UserHome> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 12),
+            child: SizedBox(
+              height: 80,
+              width: size.width - 32,
+              child: Row(
+                children: [
+                  SizedBox(
+                    height: 60,
+                    width: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: prov.user!.pic!.isEmpty
+                          ? Image.asset('assets/user-avatar.png')
+                          : Image.network(prov.user!.pic!),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        prov.user!.email!,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      InkWell(
+                          onTap: () {},
+                          child: Text(
+                            'View profile',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 114, 88, 219)),
+                          )),
+                    ],
+                  ),
+                  Spacer(),
+                  TextButton.icon(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.send_outlined,
+                        color: Color.fromARGB(255, 114, 88, 219),
+                      ),
+                      label: Text(
+                        'Email',
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 114, 88, 219)),
+                      ))
+                ],
+              ),
+            ),
+          ),
         ),
         body: isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Column(
-                children: [
-                  SizedBox(
-                    height: 100,
-                    width: size.width - 32,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: prov.user!.pic!.isEmpty
-                              ? Image.asset('assets/user-avatar.png')
-                              : Image.network(prov.user!.pic!),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              prov.user!.email!,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  setState(() {});
-                                },
-                                child: const Text('View profile'))
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                children: [],
               ));
   }
 }

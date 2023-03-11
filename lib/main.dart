@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
           Profil.idScreen: (context) => const Profil(),
         },
         theme: ThemeData(
+          fontFamily: 'Montserrat',
           // This is the theme of your application.
           //
           // Try running your application with "flutter run". You'll see the
