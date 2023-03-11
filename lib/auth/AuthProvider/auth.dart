@@ -51,11 +51,25 @@ class AuthProvider extends ChangeNotifier {
           email: event['email'],
           pic: event['pic'],
           birthdate: event['birthdate'],
-          isConnected: event['isConnected']);
-      if(event["isConnected"]){
-        user!.setEmail(event['connectedEmail'], event['connectedPwd']);
-      }
+          isConnected: event['isConnected'],
+          joinedDate: _getTime(event['joinDate']));
           notifyListeners();
+  }
+
+   _getTime(Timestamp date) {
+    if (date.toDate().toIso8601String().split('T').first ==
+        DateTime.now().toIso8601String().split('T').first) {
+      if (DateTime.now().hour == date.toDate().hour) {
+        int min = DateTime.now().minute - date.toDate().minute;
+        return "منذ $min دقائق ";
+      } else {
+        int hour = DateTime.now().hour - date.toDate().hour;
+        return "منذ $hour ساعة";
+      }
+    } else {
+      int jj = DateTime.now().day - date.toDate().day;
+      return "منذ $jj  يوم ";
+    }
   }
 
   Future<void> registerUser(
@@ -72,7 +86,8 @@ class AuthProvider extends ChangeNotifier {
           'email': email,
           'birthdate': birthdate,
           'pic': '',
-          'isConnected':false
+          'isConnected':false,
+          'joinDate':DateTime.now()
         });
       } catch (e) {
         rethrow;
