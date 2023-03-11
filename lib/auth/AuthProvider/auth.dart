@@ -86,7 +86,7 @@ class AuthProvider extends ChangeNotifier {
         if (credential.user!.emailVerified) {
           // ignore: use_build_context_synchronously
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => Home()));
+              context, MaterialPageRoute(builder: (_) => HomeUser()));
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {

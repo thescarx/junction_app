@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class Profil extends StatefulWidget {
-  static const String idScreen = "profil";
-
-  const Profil({super.key});
+class Settings extends StatefulWidget {
+  const Settings({super.key});
 
   @override
-  State<Profil> createState() => _ProfilState();
+  State<Settings> createState() => _SettingsState();
 }
 
-class _ProfilState extends State<Profil> {
+class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Profil'),
+        child: Text('Settings'),
       ),
     );
   }

@@ -41,6 +41,10 @@ dependencies:
   provider: ^6.0.5
   fluttertoast: ^8.2.1
   flutter_easyloading: ^3.0.5
+  flutter_email_sender: ^5.2.0
+  permission_handler: ^10.2.0
+  flutter_mailer: ^2.0.2
+  persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:
   flutter_test:

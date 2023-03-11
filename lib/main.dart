@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         routes: {
           Login.idScreen: (context) => const Login(),
           AuthScreen.idScreen: (context) => const AuthScreen(),
-          Home.idScreen: (context) => const Home(),
+          HomeUser.idScreen: (context) => const HomeUser(),
           EmailVerification.idScreen: (context) => const EmailVerification(),
           Profil.idScreen: (context) => const Profil(),
         },
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         home: FirebaseAuth.instance.currentUser == null
             ? const Login()
             : FirebaseAuth.instance.currentUser!.emailVerified
-                ? const Home()
+                ? const HomeUser()
                 : const EmailVerification());
   }
 }
